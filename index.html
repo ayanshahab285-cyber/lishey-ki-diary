@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lishey ki Diary 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f5eee0;--paper2:#ecdfc8;--ink:#3a2a2a;--soft:#7a6258;--rose:#c4566d;--sage:#7e9c82;--gold:#c08f45;--line:#d9c9ae;--oi:#3a2a2a;
+--hand:'Caveat','Segoe Script','Bradley Hand',cursive;--body:'Lora',Georgia,serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#2e2420;--paper2:#241c19;--ink:#f3e8d6;--soft:#cdb8a1;--line:#4a3b33;--rose:#e8788f;--gold:#dcae62}}
+:root[data-theme="dark"]{--paper:#2e2420;--paper2:#241c19;--ink:#f3e8d6;--soft:#cdb8a1;--line:#4a3b33;--rose:#e8788f;--gold:#dcae62}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:1.08rem;line-height:1.7;overflow-x:hidden;
+background:radial-gradient(rgba(120,90,60,.1) 1px,transparent 1.3px) 0 0/15px 15px,linear-gradient(170deg,var(--paper),var(--paper2)) fixed}
+main{position:relative;z-index:1}
+canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+#pg{position:fixed;top:0;left:0;height:4px;width:0;background:var(--rose);z-index:60}
+section{max-width:620px;margin:0 auto;padding:4.2rem 1.3rem;text-align:center}
+section+section::before{content:'· · ·';display:block;color:var(--gold);letter-spacing:.6em;margin:-2.4rem 0 1.6rem}
+h2{font-family:var(--hand);font-weight:700;font-size:2.7rem;line-height:1.1;margin:0 0 .3rem;color:var(--rose);display:inline-block;transform:rotate(-1.5deg);background:linear-gradient(transparent 64%,rgba(232,160,174,.5) 64%)}
+.sub{font-family:var(--hand);font-size:1.5rem;color:var(--soft);margin:.2rem 0 1.6rem}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sage);outline-offset:4px}
+.rv{opacity:0;transform:translateY(34px) rotate(.8deg);transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.btn{font-family:var(--hand);font-weight:700;font-size:1.7rem;color:#fff;background:var(--rose);border:0;border-radius:16px;padding:.35rem 1.7rem .5rem;cursor:pointer;box-shadow:0 5px 0 #9d3f55,0 10px 18px rgba(80,30,40,.25);transition:transform .15s,box-shadow .15s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #9d3f55}
+.tape{position:absolute;top:-13px;left:50%;width:92px;height:28px;margin-left:-46px;transform:rotate(-3deg);background:rgba(206,150,165,.7);box-shadow:0 1px 3px rgba(0,0,0,.15);z-index:2}
+.po{position:relative;background:#fffdf8;color:var(--oi);padding:.7rem .7rem .3rem;box-shadow:0 10px 24px rgba(60,35,25,.3)}
+.po img,.po video{width:100%;display:block;filter:sepia(.1) saturate(.96) contrast(1.03)}
+.po img{aspect-ratio:4/5;object-fit:cover}
+.po p{font-family:var(--hand);font-weight:700;font-size:1.55rem;line-height:1.15;margin:0;padding:.55rem .2rem .7rem}
+#gate{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;text-align:center;padding:2rem;background:linear-gradient(160deg,#c4566d,#9d3f55);color:#fff4e6;transition:transform 1.2s cubic-bezier(.7,0,.2,1),visibility 1.2s}
+#gate::before{content:'';position:absolute;inset:14px;pointer-events:none;border:2px dashed rgba(255,244,230,.55);border-radius:14px}
+#gate.gone{transform:translateY(-110%);visibility:hidden}
+#gate h1{font-family:var(--hand);font-size:clamp(3.4rem,17vw,5.2rem);line-height:1;margin:0}
+#gate p{font-family:var(--hand);font-size:1.6rem;margin:0;opacity:.95}
+#gate .btn{position:relative;z-index:2;background:#fff4e6;color:#9d3f55;box-shadow:0 5px 0 #d9b99a}
+#hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;max-width:none;padding-top:3rem}
+#hero .po{width:min(74vw,290px);transform:rotate(-3deg);animation:sw 7s ease-in-out infinite}
+@keyframes sw{50%{transform:rotate(2deg) translateY(-6px)}}
+.hb{font-family:var(--hand);font-weight:700;font-size:2.4rem;color:var(--soft);margin:1.2rem 0 0;line-height:1}
+.hb span{display:inline-block;opacity:0;animation:dr .7s both paused}
+body.go .hb span{animation-play-state:running}
+@keyframes dr{from{opacity:0;transform:translateY(-26px) rotate(-10deg)}to{opacity:1;transform:none}}
+.nm{font-family:var(--hand);font-weight:700;font-size:clamp(5rem,26vw,8rem);line-height:.95;margin:0;color:var(--rose);transform:rotate(-2deg)}
+.dd{position:absolute;font-size:2rem;animation:fa 5s ease-in-out infinite}
+@keyframes fa{50%{transform:translateY(-14px) rotate(10deg)}}
+.hint{font-family:var(--hand);font-size:1.4rem;color:var(--soft);margin:.5rem 0 0}
+#ck{width:min(78vw,290px);height:auto;cursor:pointer;display:block;margin:0 auto}
+.f1{transform-origin:center bottom;animation:f1 .5s ease-in-out infinite alternate}
+@keyframes f1{to{transform:scale(1.15,.88)}}
+.out .f1{display:none}
+#wish{font-family:var(--hand);font-size:1.6rem;min-height:2.6em;color:var(--soft);margin-top:.6rem}
+.letter{position:relative;background:#fffdf6 repeating-linear-gradient(transparent 0 2.2rem,#cfe0ef 2.2rem calc(2.2rem + 1px));color:var(--oi);border-radius:3px;padding:.4rem 1.1rem .4rem 1.6rem;box-shadow:0 12px 28px rgba(60,35,25,.25);min-height:25rem;white-space:pre-wrap;text-align:left;font-family:var(--hand);font-weight:500;font-size:1.55rem;line-height:2.2rem;border-left:3px solid #eaa0a0}
+.letter::after{content:'|';color:var(--rose);animation:blk 1s steps(1) infinite}
+.letter.done::after{content:''}
+@keyframes blk{50%{opacity:0}}
+.sign{font-family:var(--hand);font-weight:700;text-align:right;font-size:2.6rem;color:var(--rose);margin-top:.8rem;transform:rotate(-3deg)}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.g3{display:grid;gap:1rem}
+.rs{perspective:700px;height:150px;background:none;border:0;padding:0;cursor:pointer}
+.rs .in2{position:relative;display:block;width:100%;height:100%;transform-style:preserve-3d}
+.rs i{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:.8rem;border-radius:4px;backface-visibility:hidden;transition:transform .7s;font-style:normal;color:var(--oi);box-shadow:0 6px 16px rgba(60,35,25,.22)}
+.rs .f{background:#fffdf8;border:2px dashed var(--rose);font-size:2.2rem}
+.rs .f small{font-family:var(--hand);font-weight:700;font-size:1.35rem;line-height:1.1}
+.rs .b{background:#fff3b0;font-family:var(--hand);font-weight:700;font-size:1.4rem;line-height:1.15;transform:rotateY(180deg)}
+.g2 .rs:nth-child(2n) .b{background:#ffd9e0}.g2 .rs:nth-child(3n) .b{background:#d7ecd9}
+.rs.open .f{transform:rotateY(180deg)}.rs.open .b{transform:rotateY(0)}
+.ow .rs{height:180px}
+.tl{text-align:left}
+.tl>div{display:flex;gap:1.1rem;align-items:center;margin-bottom:2rem}
+.tl .po{flex:0 0 118px;padding:.4rem .4rem .1rem;transform:rotate(-3deg)}.tl>div:nth-child(2) .po{transform:rotate(3deg)}
+.tl .po img{aspect-ratio:1;cursor:zoom-in}
+.tl b{display:block;font-family:var(--hand);font-size:1.9rem;line-height:1.1;color:var(--rose)}
+.cnt{font-family:var(--hand);font-weight:700;font-size:3.2rem;color:var(--rose);line-height:1;margin-right:.35rem}
+.album{display:flex;gap:1.3rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:1.4rem 14vw 1.8rem;margin:0 -1.3rem;-webkit-overflow-scrolling:touch}
+.album .po{flex:0 0 70%;max-width:280px;scroll-snap-align:center;border:0;text-align:center;cursor:zoom-in}
+.album .po:nth-child(odd){transform:rotate(-2.5deg)}.album .po:nth-child(even){transform:rotate(2deg)}
+.cnt2{font-family:var(--hand);color:var(--soft);font-size:1.4rem;margin:0}
+#lb{position:fixed;inset:0;z-index:45;background:rgba(25,15,12,.93);display:none;align-items:center;justify-content:center;flex-direction:column;gap:.6rem;padding:1rem;color:#fff;font-family:var(--hand);font-size:1.7rem}
+#lb.show{display:flex}#lb img{max-width:100%;max-height:78vh;border:8px solid #fffdf8;border-bottom-width:22px}
+#lb .x{position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:14px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:rgba(0,0,0,.4);color:#fff;font-size:1.4rem;cursor:pointer}
+.pr{position:relative;display:block;width:100%;text-align:left;border:0;cursor:pointer;margin-bottom:1.3rem;padding:1.3rem 4.2rem 1.1rem 1.3rem;color:var(--oi);background:#fff3b0;box-shadow:0 8px 18px rgba(60,35,25,.25);transform:rotate(-1.2deg)}
+.pr:nth-child(2){background:#ffd9e0;transform:rotate(1.2deg)}.pr:nth-child(3){background:#d7ecd9}.pr:nth-child(4){background:#dbe8f7;transform:rotate(1deg)}
+.pr b{display:block;font-family:var(--hand);font-size:1.9rem;line-height:1.1}
+.pr span{font-family:var(--hand);font-weight:500;font-size:1.4rem;line-height:1.2;display:block}
+.pr .st2{position:absolute;right:12px;top:50%;margin-top:-26px;font-size:2.6rem;font-style:normal;transform:scale(0) rotate(-50deg);transition:transform .5s cubic-bezier(.3,1.8,.5,1)}
+.pr.sealed .st2{transform:scale(1) rotate(-12deg)}
+#pdone{display:none;font-family:var(--hand);font-weight:700;font-size:2.4rem;color:var(--rose);margin-top:.6rem}#pdone.show{display:block}
+#reveal{display:none;margin-top:1.4rem}#reveal.show{display:block}
+.big{font-family:var(--hand);font-weight:700;font-size:clamp(3rem,14vw,4.4rem);color:var(--rose);line-height:1}
+#mus{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;z-index:46;width:50px;height:50px;border-radius:50%;border:2px solid var(--rose);background:#fffdf8;cursor:pointer;display:none;font-size:1.3rem}
+#mus.on{animation:sw2 3s linear infinite}@keyframes sw2{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.hb span{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div id="pg"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<button id="mus" aria-label="Music play or pause">🎵</button>
+
+<div id="gate">
+  <p>Ayan ki taraf se, dil se</p>
+  <h1>Lishey ki<br>Diary</h1>
+  <p>Aaj ke din ke liye, sirf tumhare liye 💌</p>
+  <button class="btn" id="open">Diary kholo</button>
+</div>
+
+<main>
+<section id="hero">
+  <span class="dd" style="left:8%;top:12%">🌸</span><span class="dd" style="right:9%;top:18%;animation-delay:1s">✨</span><span class="dd" style="left:12%;bottom:14%;animation-delay:2s">🎈</span><span class="dd" style="right:10%;bottom:20%;animation-delay:.5s">💗</span>
+  <div class="po"><i class="tape"></i><img id="heroimg" alt="Alishba"><p>Meri Lishey 🎂</p></div>
+  <p class="hb" id="hb" aria-label="Happy Birthday"></p>
+  <h1 class="nm">Lishey</h1>
+  <p class="hint">Neeche scroll karo ↓</p>
+</section>
+
+<section>
+  <div class="rv"><h2>Pehle ek wish maango</h2><p class="sub">Aaj ka din sirf tumhara hai</p></div>
+  <div class="rv">
+  <svg id="ck" viewBox="0 0 300 300" role="button" tabindex="0" aria-label="Blow out the candles">
+    <ellipse cx="150" cy="268" rx="130" ry="14" fill="#c08f45" opacity=".7"/>
+    <rect x="40" y="190" width="220" height="74" rx="10" fill="#fffdf8" stroke="#3a2a2a" stroke-width="3"/>
+    <path d="M40 205q18 22 36 0t36 0 36 0 36 0 36 0 36 0v-15H40z" fill="#e8a0ae" stroke="#3a2a2a" stroke-width="3"/>
+    <rect x="75" y="125" width="150" height="66" rx="10" fill="#fffdf8" stroke="#3a2a2a" stroke-width="3"/>
+    <path d="M75 140q15 20 30 0t30 0 30 0 30 0 30 0v-15H75z" fill="#c4566d" stroke="#3a2a2a" stroke-width="3"/>
+    <g fill="#7e9c82" stroke="#3a2a2a" stroke-width="2"><circle cx="70" cy="232" r="7"/><circle cx="150" cy="238" r="7"/><circle cx="230" cy="232" r="7"/></g>
+    <g stroke="#3a2a2a" stroke-width="2"><rect x="105" y="88" width="10" height="38" fill="#c08f45"/><rect x="145" y="88" width="10" height="38" fill="#fff"/><rect x="185" y="88" width="10" height="38" fill="#c08f45"/></g>
+    <g class="f1" fill="#ffb02e" stroke="#3a2a2a" stroke-width="2"><ellipse cx="110" cy="76" rx="6" ry="11"/><ellipse cx="150" cy="76" rx="6" ry="11"/><ellipse cx="190" cy="76" rx="6" ry="11"/></g>
+  </svg>
+  <p id="wish">Moombattiyan bujhane ke liye cake par tap karo 🎂</p></div>
+</section>
+
+<section>
+  <div class="rv"><h2>Tumhare naam ek khat</h2><p class="sub">Dil se, lafz lafz (tap karo to poora khul jayega)</p></div>
+  <div class="letter rv" id="letter" aria-live="polite"></div>
+  <div class="sign rv">Tumhara Ayan</div>
+</section>
+
+<section>
+  <div class="rv"><h2>Tumse pyaar kyun hai?</h2><p class="sub">Har card par tap karo</p></div>
+  <div class="g2 rv" id="rs"></div>
+</section>
+
+<section>
+  <div class="rv"><h2>Hamari kahani</h2><p class="sub">Do dil, ek safar</p></div>
+  <div class="tl" id="tl"></div>
+</section>
+
+<section>
+  <div class="rv"><h2>Hamari yaadein</h2><p class="sub">Swipe karo, tap karke bari karo</p></div>
+  <div class="album rv" id="album"></div><p class="cnt2" id="ac"></p>
+</section>
+
+<section>
+  <div class="rv"><h2>Ek khaas video</h2><p class="sub">Sirf tumhare liye</p></div>
+  <div class="po rv" style="max-width:420px;margin:0 auto;transform:rotate(-1deg)"><i class="tape"></i><video id="vid" controls playsinline preload="metadata" style="background:#000"></video><p>Dekhna zaroor 💗</p></div>
+</section>
+
+<section>
+  <div class="rv"><h2>Mere wade</h2><p class="sub">Har wade par tap karke pakka karo</p></div>
+  <div class="rv" id="pr"></div>
+  <div id="pdone">Wade pakke, dastakhat: Ayan ✍️</div>
+</section>
+
+<section>
+  <div class="rv"><h2>Jab bhi zaroorat ho</h2><p class="sub">Ye khat kholna jab…</p></div>
+  <div class="g3 ow rv" id="ow"></div>
+</section>
+
+<section id="fin" style="padding-bottom:6rem">
+  <div class="rv"><h2>Aur ek aakhri cheez…</h2></div>
+  <div class="rv" style="margin-top:1rem"><button class="btn" id="fbtn">Surprise kholo 🎁</button></div>
+  <div id="reveal"><div class="big">I love you, Lishey ❤️</div><p style="font-family:var(--hand);font-size:1.7rem;line-height:1.3">Kal main tumhare ghar tumhare liye gifts lekar aa raha hoon 🎁<br>Tayyar rehna, meri jaan 😉</p><p class="sign" style="text-align:center">Hamesha tumhara, Ayan</p></div>
+</section>
+</main>
+
+<div id="lb" role="dialog" aria-label="Photo"><img id="lbi" alt=""><span id="lbc"></span><button class="x" aria-label="Close">✕</button></div>
+
+<script>
+var VID="videos/video-01.mp4",HERO="images/image-01.jpg",PH=[["images/image-02.jpg", "Ye hansi, meri jaan"], ["images/image-03.jpg", "Tumhara sar mere kandhe par, meri sabse pyari jagah"], ["images/image-04.jpg", "Shehzadi lag rahi thi tum"], ["images/image-05.jpg", "Meri Lishey"], ["images/image-06.jpg", "Wo din jab hum saath ghoome"], ["images/image-07.jpg", "Hum dono, ek frame mein"], ["images/image-08.jpg", "Wo cafe wali shaam"], ["images/image-09.jpg", "Hath mein hath"], ["images/image-10.jpg", "Tumhara haath, meri duniya"], ["images/image-11.jpg", "Mera sukoon"], ["images/image-12.jpg", "Meri favourite roshni"]],SONG="audio/audio-01.m4a";
+var LETTER="Meri pyari Lishey,\n\nHappy Birthday meri jaan! 🎂\n\n22 July 2022 ko jab tum meri zindagi mein aayi, mujhe nahi pata tha ke ek din tum meri poori duniya ban jaogi. Phir 20 February 2024 ko jab hum pehli baar mile, to laga jaise dil ko ghar mil gaya ho.\n\nHumne saath bahut khoobsurat waqt guzara hai. Ghoome, hanse, mazay kiye. Tumhari hansi meri sabse pasandida awaaz hai, aur tumhara saath meri sabse badi dua jo qabool hui.\n\nTum jaisi ho, mujhe waisi hi sabse zyada pasand ho. Tumhari masoomiyat, tumhari fikar, aur wo pyaar jo tum bina kahe bhi jata deti ho.\n\nAllah tumhein hamesha khush rakhe, tumhara har khwab poora ho, aur main hamesha tumhare saath rahun.\n\nHappy Birthday, meri Lishey. ❤️";
+var REASONS=["Tumhari masoom si hansi","Tumhari fikar, jo bina kahe samajh aati hai","Tumhara saath, jahan sukoon milta hai","Tumhari baatein, jo kabhi khatam na hon","Tumhari aankhein, jinmein main kho jata hoon","Bas tum, Lishey"];
+var OW=[["Jab meri yaad aaye","Aankhein band karo, main tumhare saath hoon. Aur jaldi milte hain, wada."],["Jab tum udaas ho","Ek lambi saans lo. Tum akeli nahi ho, main yahin hoon, hamesha."],["Jab khud par shak ho","Tum jitni khoobsurat ho, utni hi mazboot bhi ho. Mujhe tum par naaz hai."]];
+var PROM=[["Kabhi akela nahi chhodunga","Har mushkil mein, har mod par, tumhara haath thaame rahunga."],["Hamesha izzat karunga","Tumhari baat ki, tumhari soch ki, aur tumhari khushi ki."],["Hamesha tumhara rahunga","Aaj, kal, aur jab tak saansein hain."],["Tumhari hansi ki hifazat karunga","Koshish rahegi ke tumhari aankhon mein khushi hi rahe."]];
+var $=function(i){return document.getElementById(i)};
+$('heroimg').src=HERO;
+
+"Happy Birthday".split('').forEach(function(c,i){var s=document.createElement('span');s.textContent=c===' '?'\u00a0':c;s.style.animationDelay=(.7+i*.07)+'s';$('hb').appendChild(s)});
+
+function open2(src,cap){$('lbi').src=src;$('lbc').textContent=cap;$('lb').classList.add('show')}
+function flips(id,arr,ic){arr.forEach(function(t){var b=document.createElement('button');b.className='rs';b.setAttribute('aria-label','Open');
+ var h=typeof t==='string'?'':t[0],body=typeof t==='string'?t:t[1];
+ b.innerHTML='<span class="in2"><i class="f">'+ic+(h?'<small></small>':'')+'</i><i class="b"></i></span>';
+ if(h)b.querySelector('small').textContent=h;b.querySelector('.b').textContent=body;
+ b.onclick=function(){b.classList.toggle('open')};$(id).appendChild(b)})}
+flips('rs',REASONS,'♥');flips('ow',OW,'✉️');
+
+var sealed=0;
+PROM.forEach(function(p){var b=document.createElement('button');b.className='pr';b.innerHTML='<i class="tape"></i><b></b><span></span><em class="st2">💗</em>';
+ b.children[1].textContent=p[0];b.children[2].textContent=p[1];
+ b.onclick=function(){if(b.classList.contains('sealed'))return;b.classList.add('sealed');var r=b.getBoundingClientRect();burst(28,r.right-30,r.top+30);
+  if(++sealed===PROM.length){$('pdone').classList.add('show');setTimeout(function(){burst(140)},400)}};$('pr').appendChild(b)});
+
+var TL=[[PH[8]&&PH[8][0],'22 July 2022','Wo din jab hamari kahani shuru hui. Tum meri zindagi mein aayi.'],[PH[6]&&PH[6][0],'20 February 2024','Hamari pehli mulaqaat. Dil ne kaha, yahi hai meri jagah.'],[PH[5]&&PH[5][0],'Aaj tak','<span class="cnt" id="days">0</span>din tumhare saath, aur safar abhi bahut lamba hai.']];
+TL.forEach(function(t,i){var d=document.createElement('div');d.className='rv';d.style.transitionDelay=(i*.15)+'s';d.innerHTML='<div class="po"><i class="tape" style="width:50px;margin-left:-25px;height:18px"></i><img alt=""></div><p style="margin:0"><b></b><span></span></p>';
+ var im=d.querySelector('img');im.src=t[0]||'';im.onclick=function(){open2(t[0],t[1])};d.querySelector('b').textContent=t[1];d.querySelector('span').innerHTML=t[2];$('tl').appendChild(d)});
+var d0=new Date(2022,6,22),n=new Date();$('days').textContent=Math.floor((new Date(n.getFullYear(),n.getMonth(),n.getDate())-d0)/864e5).toLocaleString();
+
+PH.forEach(function(p){var b=document.createElement('button');b.className='po';b.setAttribute('aria-label','Open photo');
+ b.innerHTML='<i class="tape" style="background:rgba(126,156,130,.65)"></i><img alt=""><p></p>';b.querySelector('img').src=p[0];b.querySelector('p').textContent=p[1];
+ b.onclick=function(){open2(p[0],p[1])};$('album').appendChild(b)});
+$('lb').onclick=function(){this.classList.remove('show')};
+
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.rv').forEach(function(e){io.observe(e)});
+
+var cv=$('fx'),cx=cv.getContext('2d'),P=[],W,H,run=false;
+function rz(){W=cv.width=innerWidth;H=cv.height=innerHeight}rz();addEventListener('resize',rz);
+var cols=['#c4566d','#e8a0ae','#c08f45','#7e9c82','#ffffff'];
+function mk(ox,oy){return{x:ox||W/2,y:oy||H*.55,vx:(Math.random()-.5)*14,vy:-Math.random()*13-3,r:Math.random()*7+5,a:Math.random()*6,va:(Math.random()-.5)*.1,c:cols[Math.random()*5|0],life:200}}
+function loop(){cx.clearRect(0,0,W,H);
+ P=P.filter(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.28;p.vx*=.99;p.a+=p.va;p.life--;return p.y<H+30&&p.life>0});
+ P.forEach(function(p){cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillStyle=p.c;cx.beginPath();cx.moveTo(0,-p.r);cx.bezierCurveTo(p.r,-p.r,p.r,p.r*.6,0,p.r);cx.bezierCurveTo(-p.r,p.r*.6,-p.r,-p.r,0,-p.r);cx.fill();cx.restore()});
+ if(P.length)requestAnimationFrame(loop);else{run=false;cx.clearRect(0,0,W,H)}}
+function burst(k,x,y){for(var i=0;i<k;i++)P.push(mk(x,y));if(!run){run=true;requestAnimationFrame(loop)}}
+
+var typed=false,skip=0;
+function type(){if(typed)return;typed=true;var el=$('letter'),i=0;(function s(){if(skip)i=LETTER.length-1;el.textContent=LETTER.slice(0,++i);if(i<LETTER.length)setTimeout(s,22);else el.classList.add('done')})()}
+new IntersectionObserver(function(e){if(e[0].isIntersecting&&$('gate').classList.contains('gone'))type()},{threshold:.3}).observe($('letter'));
+$('letter').onclick=function(){skip=1};
+
+function blow(){var s=$('ck');if(s.classList.contains('out'))return;s.classList.add('out');$('wish').textContent='Wish maang li na? Allah qabool kare, meri jaan 💗';var r=s.getBoundingClientRect();burst(110,r.left+r.width/2,r.top+r.height/2)}
+$('ck').onclick=blow;$('ck').onkeydown=function(e){if(e.key==='Enter'||e.key===' ')blow()};
+
+var au=null;
+if(SONG){au=new Audio(SONG);au.loop=true;$('mus').style.display='block';$('mus').onclick=function(){if(au.paused){au.play();this.textContent='🎵';this.classList.add('on')}else{au.pause();this.textContent='🔇';this.classList.remove('on')}}}
+if(VID){var v=$('vid');v.src=VID;v.onplay=function(){if(au)au.pause()};v.onpause=function(){if(au&&$('mus').textContent!=='🔇')au.play().catch(function(){})}}
+
+addEventListener('scroll',function(){var h=document.documentElement;$('pg').style.width=(scrollY/(h.scrollHeight-innerHeight)*100)+'%'},{passive:true});
+var al=$('album');al.addEventListener('scroll',function(){var c=al.children[0];if(!c)return;var i=Math.round(al.scrollLeft/(c.offsetWidth+20.8));$('ac').textContent=Math.min(i+1,PH.length)+' / '+PH.length},{passive:true});$('ac').textContent='1 / '+PH.length;
+addEventListener('keydown',function(e){if(e.key==='Escape')$('lb').classList.remove('show')});
+
+$('fbtn').onclick=function(){this.style.display='none';$('reveal').classList.add('show');burst(160);setTimeout(function(){burst(120)},500)};
+$('open').onclick=function(){$('gate').classList.add('gone');document.body.classList.add('go');burst(90);if(au)au.play().then(function(){$('mus').classList.add('on')}).catch(function(){})};
+</script>
+</body>
+</html>
